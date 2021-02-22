@@ -9,4 +9,5 @@
     <string name="toast">Inscription Réussie</string>
     <string name="notInscrit">Veuillez remplir tout les champs</string>
     <string name="savedInstance">SaveIntanceState</string>
+    <string name="ButtonSoumettre">Soumettre</string>
 </resources>
