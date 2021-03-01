@@ -10,4 +10,5 @@
     <string name="notInscrit">Veuillez remplir tout les champs</string>
     <string name="savedInstance">SaveIntanceState</string>
     <string name="ButtonSoumettre">Soumettre</string>
+    <string name="onResume">On Resume +1</string>
 </resources>
