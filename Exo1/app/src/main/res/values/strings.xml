@@ -11,4 +11,5 @@
     <string name="savedInstance">SaveIntanceState</string>
     <string name="ButtonSoumettre">Soumettre</string>
     <string name="onResume">On Resume +1</string>
+    <string name="planningButton">Afficher Planning</string>
 </resources>

@@ -22,6 +22,7 @@ class Inscription : AppCompatActivity() {
     private lateinit var EditPassword: EditText
     private lateinit var inscriptionButton: Button
     private lateinit var SubmitButton: Button
+    private lateinit var PlanningButton: Button
     private var id: Int = 0
     private lateinit var use: Utilisation
 
@@ -43,6 +44,7 @@ class Inscription : AppCompatActivity() {
         EditPassword = findViewById<EditText>(R.id.EditTextPassword)
         inscriptionButton = findViewById<Button>(R.id.InscriptionButton)
         SubmitButton = findViewById<Button>(R.id.SubmitButton)
+        PlanningButton = findViewById<Button>(R.id.PlanningButton)
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(NomKey)) {
                 EditNom.setText(savedInstanceState.get(NomKey).toString())
@@ -96,6 +98,12 @@ class Inscription : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+
+        PlanningButton.setOnClickListener {
+            val intent: Intent = Intent(this, Planning::class.java)
+            startActivity(intent)
+        }
+
         lifecycle.addObserver(use)
 
     }

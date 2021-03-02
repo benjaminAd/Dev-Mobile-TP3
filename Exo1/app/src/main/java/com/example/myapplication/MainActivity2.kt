@@ -16,6 +16,7 @@ class MainActivity2 : AppCompatActivity() {
 
     private lateinit var listeView: ListView
     private lateinit var use: Utilisation
+    private lateinit var datas:ArrayList<String>
 
     private var Nom: String = ""
     private var id: Int = 0
