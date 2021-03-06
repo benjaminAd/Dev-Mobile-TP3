@@ -18,10 +18,6 @@ class Planning : AppCompatActivity() {
         setContentView(R.layout.activity_planning)
         listeView = findViewById<ListView>(R.id.ListViewPlanning)
         planningViewModel = ViewModelProvider(this)[PlanningViewModel::class.java]
-        planningViewModel.addCreneau(Creneau("08h-10h", "Rencontre avec Client DUPONT"))
-        planningViewModel.addCreneau(Creneau("10h-12h", "Travailler le dossier recrutement"))
-        planningViewModel.addCreneau(Creneau("14h-16h", "Réunion équipe"))
-        planningViewModel.addCreneau(Creneau("16h-18h", "Préparation dossier vente"))
         planning = planningViewModel.getPlanning()
         val arrayPlanning = arrayOfNulls<Creneau>(planning.size)
         planning.toArray(arrayPlanning)

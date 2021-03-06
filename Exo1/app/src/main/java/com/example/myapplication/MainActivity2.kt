@@ -15,8 +15,7 @@ import java.io.FileOutputStream
 class MainActivity2 : AppCompatActivity() {
 
     private lateinit var listeView: ListView
-    private lateinit var use: Utilisation
-    private lateinit var datas:ArrayList<String>
+    private lateinit var datas: ArrayList<String>
 
     private var Nom: String = ""
     private var id: Int = 0
@@ -25,9 +24,7 @@ class MainActivity2 : AppCompatActivity() {
 
     private val NomKey: String = "NOM"
     private val IDKey: String = "ID"
-    private val NbUseKey: String = "NBUSE"
 
-    private var NbUse: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,42 +35,28 @@ class MainActivity2 : AppCompatActivity() {
         if (!intent.equals(null)) {
             if (intent.hasExtra(NomKey)) Nom = intent.getStringExtra(NomKey).toString()
             if (intent.hasExtra(IDKey)) id = intent.getStringExtra(IDKey).toString().toInt()
-            NbUse =
-                if ((savedInstanceState != null) && (savedInstanceState.containsKey(NbUseKey))) {
-                    savedInstanceState.getInt(
-                        NbUseKey
-                    )
-                } else {
-                    if (intent.hasExtra(NbUseKey)) intent.getStringExtra(NbUseKey).toInt() else 0
-                }
-            println("-----NbUse=$NbUse")
-            use = Utilisation(NbUse)
             val file: FileInputStream = openFileInput(Nom.plus(id.toString()))
             val byteArray: ByteArray = ByteArray(1024)
             file.read(byteArray)
             RecupData = String(byteArray)
             val SplitDatas = RecupData.split(',')
-            val datas = arrayOfNulls<String>(6)
-            for (i in 0..4) {
+            val datas = arrayOfNulls<String>(5)
+            for (i in 0..3) {
                 datas[i] = SplitDatas[i]
+                println("Datas------${datas[i]}")
             }
-            println("---------${use.getNbUse()}")
-            datas[5] = use.getNbUse().toString()
+            println("---------${Utilisation.NbUse}")
+            datas[4] = Utilisation.NbUse.toString()
             val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, datas)
             listeView.adapter = adapter
 
         }
-        lifecycle.addObserver(use)
+        lifecycle.addObserver(Utilisation())
     }
 
     override fun onResume() {
         super.onResume()
         Toast.makeText(this, R.string.onResume, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        outState.putInt(NbUseKey, use.getNbUse())
     }
 
 }

@@ -119,7 +119,6 @@
             android:text="@string/mdp" />
 
         <EditText
-            android:id="@+id/EditTextPassword"
             android:layout_width="152dp"
             android:layout_height="wrap_content"
             android:autofillHints="@string/mdp"

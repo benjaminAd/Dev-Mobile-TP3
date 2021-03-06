@@ -19,7 +19,6 @@ class Inscription : AppCompatActivity() {
     private lateinit var EditPrenom: EditText
     private lateinit var EditAge: EditText
     private lateinit var EditNumTel: EditText
-    private lateinit var EditPassword: EditText
     private lateinit var inscriptionButton: Button
     private lateinit var SubmitButton: Button
     private lateinit var PlanningButton: Button
@@ -36,12 +35,10 @@ class Inscription : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.inscription)
-        use = Utilisation(0)
         EditNom = findViewById<EditText>(R.id.EditTextNom)
         EditPrenom = findViewById<EditText>(R.id.EditTextPrenom)
         EditAge = findViewById<EditText>(R.id.EditTextAge)
         EditNumTel = findViewById<EditText>(R.id.EditTextNumTel)
-        EditPassword = findViewById<EditText>(R.id.EditTextPassword)
         inscriptionButton = findViewById<Button>(R.id.InscriptionButton)
         SubmitButton = findViewById<Button>(R.id.SubmitButton)
         PlanningButton = findViewById<Button>(R.id.PlanningButton)
@@ -63,11 +60,11 @@ class Inscription : AppCompatActivity() {
             }
             if (savedInstanceState.containsKey(NbUseKey)) {
                 println("------------${savedInstanceState.get(NbUseKey).toString()}")
-                use.setNbUse(savedInstanceState.get(NbUseKey).toString().toInt())
+                Utilisation.NbUse = savedInstanceState.get(NbUseKey).toString().toInt()
             }
         }
         inscriptionButton.setOnClickListener {
-            if ((EditNom.text.isBlank()) || (EditPrenom.text.isBlank()) || (EditAge.text.isBlank()) || (EditNumTel.text.isBlank()) || (EditPassword.text.isBlank())) {
+            if ((EditNom.text.isBlank()) || (EditPrenom.text.isBlank()) || (EditAge.text.isBlank()) || (EditNumTel.text.isBlank())) {
                 Toast.makeText(this, R.string.notInscrit, Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
@@ -76,7 +73,7 @@ class Inscription : AppCompatActivity() {
         }
 
         SubmitButton.setOnClickListener {
-            if ((EditNom.text.isBlank()) || (EditPrenom.text.isBlank()) || (EditAge.text.isBlank()) || (EditNumTel.text.isBlank()) || (EditPassword.text.isBlank())) {
+            if ((EditNom.text.isBlank()) || (EditPrenom.text.isBlank()) || (EditAge.text.isBlank()) || (EditNumTel.text.isBlank())) {
                 Toast.makeText(this, R.string.notInscrit, Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
@@ -89,12 +86,10 @@ class Inscription : AppCompatActivity() {
                 file.write(EditPrenom.text.toString().plus(",").toByteArray())
                 file.write(EditAge.text.toString().plus(",").toByteArray())
                 file.write(EditNumTel.text.toString().plus(",").toByteArray())
-                file.write(EditPassword.text.toString().plus(",").toByteArray())
                 file.close()
                 val intent: Intent = Intent(this, MainActivity2::class.java)
                 intent.putExtra(NomKey, EditNom.text.toString())
                 intent.putExtra(IDKey, id.toString())
-                intent.putExtra(NbUseKey, use.getNbUse().toString())
                 startActivity(intent)
             }
         }
@@ -104,7 +99,7 @@ class Inscription : AppCompatActivity() {
             startActivity(intent)
         }
 
-        lifecycle.addObserver(use)
+        lifecycle.addObserver(Utilisation())
 
     }
 
@@ -124,7 +119,7 @@ class Inscription : AppCompatActivity() {
         outState.putString(PrenomKey, EditPrenom.text.toString())
         outState.putString(AgeKey, EditAge.text.toString())
         outState.putString(NumKey, EditNumTel.text.toString())
-        outState.putString(NbUseKey, use.getNbUse().toString())
+        outState.putString(NbUseKey, Utilisation.NbUse.toString())
         if (!id.equals(0)) outState.putString(IDKey, id.toString())
         Toast.makeText(this, R.string.savedInstance, Toast.LENGTH_SHORT).show()
     }
