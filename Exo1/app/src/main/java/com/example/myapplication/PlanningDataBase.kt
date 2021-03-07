@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import com.example.myapplication.DAO.PlanningDAO
 import com.example.myapplication.Entity.PlanningEntity
 
-@Database(entities = [PlanningEntity::class], version = 1)
+@Database(entities = [PlanningEntity::class], version = 1, exportSchema = false)
 abstract class PlanningDataBase : RoomDatabase() {
-    abstract fun PlanningDAO(): PlanningDAO
+    abstract val PlanningDAO: PlanningDAO
 
     companion object {
         @Volatile
@@ -25,7 +25,8 @@ abstract class PlanningDataBase : RoomDatabase() {
                     context.applicationContext,
                     PlanningDataBase::class.java,
                     "planning_database"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

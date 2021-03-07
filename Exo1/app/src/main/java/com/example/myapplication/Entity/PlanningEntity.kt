@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity(tableName = "planning_table")
 data class PlanningEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     val id: UUID,
     val horaire: String,
     val activity: String

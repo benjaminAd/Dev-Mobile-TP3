@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Entity.PlanningEntity
@@ -12,11 +13,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class PlanningAndroidViewModel(application: Application) : AndroidViewModel(application) {
-    val readAllData: MutableLiveData<ArrayList<PlanningEntity>>
+    val readAllData: LiveData<ArrayList<PlanningEntity>>
     private val repository: PlanningRepository
 
     init {
-        val planningDao = PlanningDataBase.getDatabase(application).PlanningDAO()
+        val planningDao = PlanningDataBase.getDatabase(application).PlanningDAO
         repository = PlanningRepository(planningDao)
         readAllData = repository.readAllData
     }
