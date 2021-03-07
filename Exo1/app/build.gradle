@@ -4,7 +4,6 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.android.roomwordssample"
         minSdkVersion 20
         targetSdkVersion 29
         versionCode 1
