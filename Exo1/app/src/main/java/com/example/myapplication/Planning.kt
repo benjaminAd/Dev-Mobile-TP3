@@ -24,6 +24,8 @@ class Planning : AppCompatActivity() {
 
     private lateinit var file: FileOutputStream
 
+    private lateinit var mPlanningAndroidViewModel: PlanningAndroidViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +35,29 @@ class Planning : AppCompatActivity() {
         planning3 = findViewById<TextView>(R.id.Planning3)
         planning4 = findViewById<TextView>(R.id.Planning4)
         context = this
-        val planningViewModel: PlanningViewModel =
-            ViewModelProvider(this)[PlanningViewModel::class.java]
-        planningViewModel.getPlanning().observe(this, { slots ->
-            planning1.text = slots[0].toString()
-            planning2.text = slots[1].toString()
-            planning3.text = slots[2].toString()
-            planning4.text = slots[3].toString()
+
+        mPlanningAndroidViewModel =
+            ViewModelProvider(this).get(PlanningAndroidViewModel(application)::class.java)
+
+        // mPlanningAndroidViewModel.addBasicsData()
+
+        mPlanningAndroidViewModel.readAllData.observe(this, { plannings ->
+            planning1.text = "${plannings[0].horaire} : ${plannings[0].activity}"
+            planning2.text = "${plannings[1].horaire} : ${plannings[1].activity}"
+            planning3.text = "${plannings[2].horaire} : ${plannings[2].activity}"
+            planning4.text = "${plannings[3].horaire} : ${plannings[3].activity}"
 
         })
+
+        /* val planningViewModel: PlanningViewModel =
+             ViewModelProvider(this)[PlanningViewModel::class.java]
+         planningViewModel.getPlanning().observe(this, { slots ->
+             planning1.text = slots[0].toString()
+             planning2.text = slots[1].toString()
+             planning3.text = slots[2].toString()
+             planning4.text = slots[3].toString()
+
+         })*/
 
         Handler().postDelayed({
             file = openFileOutput("planning", Context.MODE_PRIVATE)
@@ -55,7 +71,7 @@ class Planning : AppCompatActivity() {
 
 
         buttonFillData = findViewById<Button>(R.id.buttonFillData)
-        buttonFillData.setOnClickListener {
+        /*buttonFillData.setOnClickListener {
             val fileInput: FileInputStream = openFileInput("planning")
             val byteArray: ByteArray = ByteArray(1024)
             fileInput.read(byteArray)
@@ -66,6 +82,6 @@ class Planning : AppCompatActivity() {
                 creneauList.add(Creneau(SplitCreneau[0], SplitCreneau[1]))
             }
             planningViewModel.getPlanning().value = creneauList
-        }
+        }*/
     }
 }
