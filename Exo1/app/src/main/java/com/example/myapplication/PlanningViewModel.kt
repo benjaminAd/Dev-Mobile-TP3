@@ -1,28 +1,24 @@
 package com.example.myapplication
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class PlanningViewModel : ViewModel() {
-    private val planning: ArrayList<Creneau> = ArrayList<Creneau>()
+    private var slots: MutableLiveData<ArrayList<Creneau>> = MutableLiveData()
 
     private fun initCreneau() {
-        addCreneau(Creneau("08h-10h", "Rencontre avec Client DUPONT"))
-        addCreneau(Creneau("10h-12h", "Travailler le dossier recrutement"))
-        addCreneau(Creneau("14h-16h", "Réunion équipe"))
-        addCreneau(Creneau("16h-18h", "Préparation dossier vente"))
+        var list = ArrayList<Creneau>()
+        list.add(Creneau("08h-10h", "Rencontre avec Client DUPONT"))
+        list.add(Creneau("10h-12h", "Travailler le dossier recrutement"))
+        list.add(Creneau("14h-16h", "Réunion équipe"))
+        list.add(Creneau("16h-18h", "Préparation dossier vente"))
+        this.slots.value = list
     }
 
-    fun getPlanning(): ArrayList<Creneau> {
+    fun getPlanning(): MutableLiveData<ArrayList<Creneau>> {
         initCreneau()
-        return this.planning
+        return this.slots
     }
 
-    fun addCreneau(creneau: Creneau) {
-        this.planning.add(creneau)
-    }
-
-    fun removeCreneau(creneau: Creneau) {
-        this.planning.remove(creneau)
-    }
 
 }
